@@ -14,26 +14,22 @@ class Numeric
   end
 
   def in(curr)
-    self * @@currencies[@currency]
+    singular_currency = curr.to_s.gsub( /s$/, '')
+    self / @@currencies[singular_currency]
   end
 
 end
-p 6.euro.in(:dollar)
-# 10 долларов в евро = 10 * 1 * 1/1.292
-
-# 10 евро в долларах = 10 * 1.292 * 1/1
-
-# 10 рупий в долларах = 10 * 0.019 * 1/1
-
-# 10 рупий в евро = 10 * 0.019 * 1/1.292
 
 class String
   def palindrome?
-    cleared = self.split(/[^a-zA-Z]/i).reject{|s| s.empty? }.map(&:downcase).join('')
+    cleared = self.split(/[^a-zA-Z1-9]/i).reject{|s| s.empty? }.map(&:downcase).join('')
+    p cleared
     cleared.reverse == cleared
   end
 end
 
 module Enumerable
-  # YOUR CODE HERE
+  def palindrome?
+    self.join(' ').palindrome?
+  end
 end
